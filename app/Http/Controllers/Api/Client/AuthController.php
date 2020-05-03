@@ -29,16 +29,14 @@ class AuthController extends Controller
         $rules = [
             'name'                  => 'required|string',
             'mobile'                => 'required|unique:clients,mobile',
-            'image'                 => 'sometimes|image|mimes:jpeg,bmp,png,jpg',
+            'email'                => 'required|unique:clients,email',
             'password'              => 'required|min:8|confirmed',
             'password_confirmation' => 'required_with:password|same:password',
             'country_id'            => 'required|numeric',
             'city_id'               => 'required|numeric',
             'address'               => 'required|string',
-            'lat'                   => 'required|numeric',
-            'lng'                   => 'required|numeric',
-            'device_token'          => 'sometimes|string',
         ];
+//        return responseJson(0, 402, $rules);
 
         $validation = validator()->make($request->all(), $rules);
         if ($validation->fails()) {

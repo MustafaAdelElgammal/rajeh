@@ -26,7 +26,7 @@ class Client extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-    protected  $fillable = ['name','mobile','mobile_code','password','country_id','city_id','address','lat','lng','image','avg_rate','device_token','mobile_verify_at'];
+    protected  $fillable = ['name','mobile','mobile_code','password','country_id','city_id','address','email','avg_rate','device_token','mobile_verify_at'];
 
     /**
      * The attributes that should be hidden for arrays.

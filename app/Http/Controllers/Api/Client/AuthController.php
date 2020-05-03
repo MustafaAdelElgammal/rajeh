@@ -69,7 +69,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $rules = [
-            'mobile'    => 'required|exists:clients,mobile',
+            'email'    => 'required|exists:clients,email',
             'password' => 'required|min:8',
         ];
         $validation = validator()->make($request->all(), $rules);
@@ -77,8 +77,9 @@ class AuthController extends Controller
             return responseJson(0, 402, $validation->errors()->first());
         }
 
-        $credentials = $request->only('mobile', 'password');
-        $client = Client::where('mobile', $request->mobile)->first();
+        $credentials = $request->only('email', 'password');
+        $client = Client::where('email', $request->email)->first();
+//        return responseJson(1, 200, __('api.login.success'),$client);
         if ($client == null) {
             return responseJson(0, 402, __('api.login.client not found'));
         }
@@ -126,7 +127,7 @@ class AuthController extends Controller
         if ($validation->fails()) {
             return responseJson(0, 402, $validation->errors()->first());
         }
-        $client = Client::where('mobile',$request->mobile)->first();      
+        $client = Client::where('mobile',$request->mobile)->first();
         if (!$client) {
             return responseJson(0, 402, __('api.login.error'));
         }

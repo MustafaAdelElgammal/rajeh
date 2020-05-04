@@ -174,7 +174,7 @@ class AuthController extends Controller
     public function forgetpassword(Request $request)
     {
         $rules = [
-            'mobile' => 'required|exists:clients,mobile',
+            'email' => 'required|exists:clients,email',
         ];
 
         $validation = validator()->make($request->all(), $rules);
@@ -182,8 +182,8 @@ class AuthController extends Controller
             return responseJson(0, 402, $validation->errors()->first());
         }
 
-        $new_password = mt_rand(10000000, 99999999);
-        $client = Client::where('mobile', $request->mobile)->first();
+        $new_password = $request->new_password;
+        $client = Client::where('email', $request->email)->first();
         $client->update(['password' => $new_password]);
 
         //TODO:: send sms with new password
